@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Componentes vue.js </title>
+	<link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+</head>
+<body> 
+	<div id="app" class="container">
+		<br>
+		<h2>{{cabecalho}}</h2>
+		<add-livro></add-livro>
+	
+		<itens-comp></itens-comp>
+
+		<div class="footer">
+			<hr/>
+			<em>Modifique o titulo da lista</em>
+			<altera-titulo></altera-titulo>
+		</div>
+		<h1>Usando componente VUE JS</h1>
+		<button-counter></button-counter>
+	</div>
+</body>
+
+<script type="text/javascript" src="js/vue.js"></script>
+<script type="text/javascript">
+	/**
+	 * Criando componente
+	*/
+	
+	Vue.component('button-counter', {
+		data: function(){
+			return {
+				count: 0
+			}
+		},
+		template: '<button v-on:click="count++">voce clicou em mim {{count}} vezes.</button>'
+	});
+
+	/**
+	 * Criando um vetor de objectos
+	 */
+
+	var data = {
+			livros: [{ titulo: 'Orange is The New Black', autor: 'Piper Kerman', checked: true }, 
+				     { titulo: 'A Origem das Espécies', autor: 'Charles Darwin', checked: true }],
+
+			cabecalho: 'Livros Preferidos',
+			novoLivro: '',
+			novoAutor: ''
+		};
+
+	/**
+	 * Declarando componentes
+	*/
+	var ItensComp = Vue.extend({
+		data: function(){
+			return data;
+		},
+		template: 
+			'<ul>'+
+				'<li v-for="livro in livros" :class="{\'removido\': livro.checked }">' +
+					'<div class="checkbox">' +
+						'<label>' +
+							'<input type="checkbox" v-model="livro.checked">' +
+							'<big> {{livro.titulo}} </big> - <small>{{livro.autor}}</small>' +
+						'</label>' +
+					'</div>' +
+				'</li>'+
+			'</ul>'
+	});
+
+	var AlteraTituloComp = Vue.extend({
+		data: function(){
+			return data;
+		},
+		template: '<input v-model="cabecalho"/>'
+
+	});
+
+	var AddItemComp = Vue.extend({
+		data: function(){
+			return data;
+		},
+		methods: {
+			addLivro: function(){
+				var titulo = this.novoLivro.trim();
+				var autor  = this.novoAutor.trim();
+
+				if(titulo && autor){
+					this.livros.push({
+						titulo: titulo,
+						autor: autor,
+						checked: false
+					});
+
+					this.novoLivro = '';
+					this.novoAutor = '';
+				}
+			}
+		},
+		template:
+			'<div>'+
+			'<input type="text" v-model="novoLivro" @keyup.enter="addLivro"' + 'placeholder="Adicione um Livro" class="form-control">'+ '<br>' +
+
+			'<input type="text" v-model="novoAutor" @keyup.enter="addLivro"' + 'placeholder="Adicione um Autor" class="form-control">' + '<br>' +
+
+			'<span class="input-btn-group">' +
+				'<button @click="addLivro" class="js-add btn btn-primary btn-block"' + 'type="button">Adicionar!</button>' +
+			'</span>'+ 
+			'</div>'
+
+	});
+	/**
+	 * Registrando os componenttes
+	 */
+	
+	Vue.component('itens-comp', ItensComp);
+	Vue.component('altera-titulo', AlteraTituloComp);
+	Vue.component('add-livro', AddItemComp);
+
+	new Vue({
+		el: '#app',
+		data: data	
+	});
+</script>
+</html>

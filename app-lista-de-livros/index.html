@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Lista de livros</title>
+	<link rel="stylesheet" href="css/index.css">
+	<link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+		<h2>Minha lista de livros</h2>
+		
+			<input type="text" name="" placeholder="adicione umm livro" class="js-novo-livro form-control"> <br>
+			<input type="text" name="" placeholder="Nome do autor" class="js-novo-autor form-control"> <br>
+			<span class="input-group-btn">
+				<button @click="addItem" class="js-add btn btn-primary btn-block" type="button">Adicionar!</button>
+			</span>
+		
+		<ul>
+			<li>
+				<div class="checkbox">
+					<label>
+						<input class="js-livro" type="checkbox" name="list">
+						<big>Alice no País das Maravilhas</big> - <small>Lewis Carol</small>
+					</label>
+				</div>
+			</li>
+			<li>
+				<div class="removido">
+					<label>
+						<input class="js-livro" type="checkbox" name="list" checked>
+						<big>O Senhor dos Anéis - As Duas Torres</big> - <small>J. R. R. Tolkien</small>
+					</label>
+				</div>
+			</li>
+		</ul>
+	</div>
+</body>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/index.js"></script>
+</html>

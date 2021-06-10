@@ -1,0 +1,16 @@
+.container {
+	margin: 20px auto 0 auto;
+	width: 40%;
+}
+
+.removido {
+	color: grey;
+}
+
+.removido label {
+	text-decoration: line-through;
+} 
+
+ui, li {
+	list-style: none;
+}

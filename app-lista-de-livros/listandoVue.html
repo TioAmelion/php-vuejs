@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+</head>
+<body> 
+	<div id="app" class="container">
+		<br>
+		<input type="text" v-model="novoLivro" @keyup.enter="addLivro" placeholder="Adicione um Livro" class="form-control"> <br>
+		<input type="text" v-model="novoAutor" @keyup.enter="addLivro" placeholder="Adicione um Autor" class="form-control"> <br>
+
+		<span class="input-btn-group">
+			<button @click="addLivro" class="js-add btn btn-primary btn-blick">Adicionar!</button>
+		</span>
+
+		<h2>{{cabecalho}}</h2>
+		<ul>
+			<li v-for="livro in livros" v-bind:class="{'removido': livro.checked }">
+				<div class="checkbox">
+					<label>
+						<input class="js-livro" type="checkbox" name="list" v-model="livro.checked">
+						<big>{{livro.titulo}}</big> - <small>{{livro.autor}}</small>
+					</label>
+				</div>
+			</li>
+		</ul>
+		<div class="footer">
+			<hr/>
+			<em>Modifique o titulo da lista</em>
+			<input v-model="cabecalho"/>
+		</div>
+	</div>
+</body>
+
+<script type="text/javascript" src="js/vue.js"></script>
+<script type="text/javascript">
+	var data = {
+			livros: [{ titulo: 'Orange is The New Black', autor: 'Piper Kerman', checked: true }, 
+				     { titulo: 'A Origem das Espécies', autor: 'Charles Darwin', checked: true }],
+
+			cabecalho: 'Livros Preferidos',
+			novoLivro: '',
+			novoAutor: ''
+		};
+		
+	new Vue({
+		el: '#app',
+		data: data, 
+
+		methods: {
+			addLivro: function(){
+				var titulo = this.novoLivro.trim();
+				var autor  = this.novoAutor.trim();
+
+				if(titulo && autor){
+					this.livros.push({
+						titulo: titulo,
+						autor: autor,
+						checked: false
+					});
+
+					this.novoLivro = '';
+					this.novoAutor = '';
+				}
+			}
+		}
+	});
+	// var objecto = {};
+		// var texto   = '';
+		// var h2 = document.getElementsByTagName('h2')[0];
+
+		// Object.defineProperty(objecto, 'texto', {
+		// 	get: function(){
+		// 		return texto;
+		// 	},
+
+		// 	set: function(novoValor){
+		// 		texto = novoValor;
+		// 		h2.innerHTML = texto; 
+		// 	}
+		// });
+
+</script>
+</html>
